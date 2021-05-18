@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\CSharp\\mcq_backend\\mcq_backend\\mcq_backend.csproj": {}
+    "E:\\CSharp\\mcq_backend\\mcq_backend\\mcq_backend\\mcq_backend.csproj": {}
   },
   "projects": {
-    "E:\\CSharp\\mcq_backend\\mcq_backend\\mcq_backend.csproj": {
+    "E:\\CSharp\\mcq_backend\\mcq_backend\\mcq_backend\\mcq_backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\CSharp\\mcq_backend\\mcq_backend\\mcq_backend.csproj",
+        "projectUniqueName": "E:\\CSharp\\mcq_backend\\mcq_backend\\mcq_backend\\mcq_backend.csproj",
         "projectName": "mcq_backend",
-        "projectPath": "E:\\CSharp\\mcq_backend\\mcq_backend\\mcq_backend.csproj",
+        "projectPath": "E:\\CSharp\\mcq_backend\\mcq_backend\\mcq_backend\\mcq_backend.csproj",
         "packagesPath": "C:\\Users\\Nik3\\.nuget\\packages\\",
-        "outputPath": "E:\\CSharp\\mcq_backend\\mcq_backend\\obj\\",
+        "outputPath": "E:\\CSharp\\mcq_backend\\mcq_backend\\mcq_backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
