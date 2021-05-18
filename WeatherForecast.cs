@@ -12,4 +12,6 @@ namespace mcq_backend
 
         public string Summary { get; set; }
     }
+
+    public record WeathaForecast(DateTime Date, int TempC, string Summary);
 }
