@@ -4,8 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using mcq_backend.Helper.Context;
 using mcq_backend.Model;
+using mcq_backend.Model.Keyless;
+using mcq_backend.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace mcq_backend.Controllers
@@ -15,6 +18,9 @@ namespace mcq_backend.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly DBContext _ctx;
+        private IMapper _mapper;
+        private IGenericRepository<IdoruKeyless> _idorukl;
+        private IGenericRepository<Idoru> _idoru;
 
         private static readonly string[] Summaries = new[]
         {
@@ -23,10 +29,13 @@ namespace mcq_backend.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, DBContext ctx)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, DBContext ctx, IMapper mapper)
         {
             _logger = logger;
             _ctx = ctx;
+            _mapper = mapper;
+            _idorukl = new GenericRepository<IdoruKeyless>(_ctx);
+            _idoru = new GenericRepository<Idoru>(_ctx);
         }
 
         [HttpGet]
@@ -41,9 +50,16 @@ namespace mcq_backend.Controllers
         }
 
         [HttpGet("idol")]
-        public async Task<IEnumerable<Idoru>> GetIdol()
+        public async Task<IList<IdoruParam>> GetIdol()
         {
-            var result = await _ctx.Idoru.ToListAsync();
+            var result = await _idoru.Get();
+            return _mapper.Map<IList<IdoruParam>>(result);
+        }
+
+        [HttpGet("keyless-idol")]
+        public IList<IdoruKeyless> GetIdolKeyless()
+        {
+            var result = _idorukl.RawSelect($"select * from getIdol(1,4)");
             return result;
         }
 
@@ -77,7 +93,7 @@ namespace mcq_backend.Controllers
 
             _ctx.Attach(curr);
             _ctx.Update(curr);
-            
+
             if (await _ctx.SaveChangesAsync() < 0)
             {
                 return BadRequest();

@@ -16,6 +16,7 @@ namespace mcq_backend.Repository
         string includeProperties = "",
         int first = 0, int offset = 0, bool isIgnore = false);
 
+    IList<T> RawSelect(FormattableString query);
     void Insert(T entity);
     void Update(T entity);
     void Delete(object id);

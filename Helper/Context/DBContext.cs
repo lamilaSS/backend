@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using mcq_backend.Model;
 using mcq_backend.Model.DefaultModel;
+using mcq_backend.Model.Keyless;
 using Microsoft.EntityFrameworkCore;
 
 namespace mcq_backend.Helper.Context
@@ -18,6 +19,8 @@ namespace mcq_backend.Helper.Context
         }
 
         public DbSet<Idoru> Idoru { get; set; }
+        
+        public DbSet<IdoruKeyless> IdoruKeylesses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

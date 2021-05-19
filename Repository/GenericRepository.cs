@@ -96,5 +96,11 @@ namespace mcq_backend.Repository
             dbSet.Attach(entity);
             dbSet.Remove(entity);
         }
+
+        public IList<T> RawSelect(FormattableString query)
+        {
+            var resp = dbSet.FromSqlInterpolated(query).ToList();
+            return resp;
+        }
     }
 }
