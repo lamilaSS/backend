@@ -48,6 +48,9 @@ namespace mcq_backend
             var appSettingsOptions = new AppSettingsOptions();
             Configuration.GetSection(AppSettingsOptions.AppSettings).Bind(appSettingsOptions);
             
+            //DI Configuration for later use
+            services.AddSingleton<AppSettingsOptions>(appSettingsOptions);
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MCQ API", Version = "v1" });

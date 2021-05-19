@@ -3,12 +3,14 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using mcq_backend.Helper.Context;
 using mcq_backend.Model;
 using mcq_backend.Model.Keyless;
 using mcq_backend.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace mcq_backend.Controllers
@@ -37,10 +39,12 @@ namespace mcq_backend.Controllers
             _idorukl = new GenericRepository<IdoruKeyless>(_ctx);
             _idoru = new GenericRepository<Idoru>(_ctx);
         }
-
+        [Authorize(Roles = "user")]
         [HttpGet]
         public IEnumerable<WeathaForecast> Get()
         {
+            int id = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            Console.WriteLine(id);
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeathaForecast(DateTime.Now.AddDays(index),
                     rng.Next(-20, 55),
