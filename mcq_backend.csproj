@@ -27,9 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO" />
-    <Folder Include="Helper\Exception" />
-    <Folder Include="Repository" />
+    <Folder Include="DAL" />
     <Folder Include="Service" />
   </ItemGroup>
 

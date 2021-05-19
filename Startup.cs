@@ -15,8 +15,10 @@ using System.Threading.Tasks;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using mcq_backend.Helper;
+using mcq_backend.Helper.AppHelper;
 using mcq_backend.Helper.Cache;
 using mcq_backend.Helper.Context;
+using mcq_backend.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
@@ -29,6 +31,7 @@ namespace mcq_backend
 {
     public class Startup
     {
+        public readonly IConfiguration Configuration;
         // private const string ServicePath = "./service-account.json";
         public Startup(IConfiguration configuration)
         {
@@ -38,14 +41,13 @@ namespace mcq_backend
             //     // Credential = GoogleCredential.FromFile(ServicePath)
             // });
         }
-
-        public IConfiguration Configuration { get; }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
+            var appSettingsOptions = new AppSettingsOptions();
+            Configuration.GetSection(AppSettingsOptions.AppSettings).Bind(appSettingsOptions);
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MCQ API", Version = "v1" });
@@ -101,14 +103,15 @@ namespace mcq_backend
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey =
-                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AppSettings:JwtSecret"])),
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettingsOptions.JwtSecret)),
                         ValidateIssuer = true,
-                        ValidIssuer = AppSettings.Settings.Issuer,
+                        ValidIssuer = appSettingsOptions.Issuer,
                         ValidateAudience = true,
-                        ValidAudience = AppSettings.Settings.Audience,
+                        ValidAudience = appSettingsOptions.Audience,
                         RequireExpirationTime = false
                     };
                 });
+            
             
             // DB configure
             services.AddDbContext<DBContext>(opts =>
@@ -118,9 +121,12 @@ namespace mcq_backend
             );
             services.AddScoped<DBContext>();
             
+            // Add unit of work scope
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             // set up redis cache
-            var redisCacheSettings = new RedisSettings();
-            Configuration.GetSection(nameof(RedisSettings)).Bind(redisCacheSettings);
+            var redisCacheSettings = new RedisSettingsOptions();
+            Configuration.GetSection(RedisSettingsOptions.RedisSettings).Bind(redisCacheSettings);
             services.AddSingleton(redisCacheSettings);
             if (redisCacheSettings.Enabled)
             {

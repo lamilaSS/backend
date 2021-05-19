@@ -22,24 +22,6 @@ namespace mcq_backend.Helper.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // modelBuilder.Entity<Idoru>(entity =>
-            // {
-            //     entity.ToTable("idoru");
-            //
-            //     entity.Property(e => e.Id).HasColumnName("id");
-            //
-            //     entity.Property(e => e.Addr)
-            //         .HasMaxLength(1000)
-            //         .HasColumnName("addr");
-            //
-            //     entity.Property(e => e.Age).HasColumnName("age");
-            //
-            //     entity.Property(e => e.Gender).HasColumnName("gender");
-            //
-            //     entity.Property(e => e.Name)
-            //         .HasMaxLength(100)
-            //         .HasColumnName("name");
-            // });
             // modelBuilder.Entity<Idoru>().HasData
             // (
             //     new Idoru() {Age = 17, Gender = false, Name = "Trần Suisei"}

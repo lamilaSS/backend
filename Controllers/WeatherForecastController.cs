@@ -15,7 +15,7 @@ namespace mcq_backend.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly DBContext _ctx;
-        
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -27,7 +27,6 @@ namespace mcq_backend.Controllers
         {
             _logger = logger;
             _ctx = ctx;
-
         }
 
         [HttpGet]
@@ -47,5 +46,46 @@ namespace mcq_backend.Controllers
             var result = await _ctx.Idoru.ToListAsync();
             return result;
         }
+
+        [HttpPost("add-idol")]
+        public async Task<ActionResult<Idoru>> SetIdol(IdoruParam idoru)
+        {
+            var newIdol = new Idoru()
+            {
+                Name = idoru.Name,
+                Age = idoru.Age,
+                Addr = idoru.Addr,
+                Gender = idoru.Gender
+            };
+            var res = await _ctx.Idoru.AddAsync(newIdol);
+            if (await _ctx.SaveChangesAsync() < 0)
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _ctx.Idoru.FindAsync(newIdol.Id));
+        }
+
+        [HttpPut("update-idol")]
+        public async Task<ActionResult<Idoru>> UpdateIdol(int id, IdoruParam idoru)
+        {
+            var curr = await _ctx.Idoru.FindAsync(id);
+            curr.Addr = idoru.Addr;
+            curr.Name = idoru.Name;
+            curr.Age = idoru.Age;
+            curr.Gender = idoru.Gender;
+
+            _ctx.Attach(curr);
+            _ctx.Update(curr);
+            
+            if (await _ctx.SaveChangesAsync() < 0)
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _ctx.Idoru.FindAsync(curr.Id));
+        }
     }
+
+    public record IdoruParam(string Name, short Age, string Addr, bool Gender);
 }

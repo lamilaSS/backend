@@ -17,9 +17,6 @@ namespace mcq_backend
     {
         public static void Main(string[] args)
         {
-            var json = File.ReadAllText(@"appsettings.json");
-            var o = JObject.Parse(@json);
-            AppSettings.Settings = JsonConvert.DeserializeObject<AppSettings>(o["AppSettings"].ToString());
             CreateHostBuilder(args).Build().Run();
         }
 

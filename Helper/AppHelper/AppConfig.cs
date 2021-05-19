@@ -1,7 +1,8 @@
 using System;
 using Microsoft.Extensions.Configuration;
 
-namespace mcq_backend.Helper
+
+namespace mcq_backend.Helper.AppHelper
 {
     public class AppConfig
     {
@@ -17,7 +18,7 @@ namespace mcq_backend.Helper
                 string connectionString = _currentConfig["ConnectionString:" + key];
                 return connectionString;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 throw (ex);
             }
@@ -29,7 +30,7 @@ namespace mcq_backend.Helper
                 string connectionString = _currentConfig["RedisCacheSettings:ConnectionString"];
                 return connectionString;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 throw (ex);
             }

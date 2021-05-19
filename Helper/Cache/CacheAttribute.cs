@@ -25,7 +25,7 @@ namespace mcq_backend.Helper.Cache
 
             public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
             {
-                var cacheSettings = context.HttpContext.RequestServices.GetRequiredService<RedisSettings>();
+                var cacheSettings = context.HttpContext.RequestServices.GetRequiredService<RedisSettingsOptions>();
 
                 if (!cacheSettings.Enabled)
                 {

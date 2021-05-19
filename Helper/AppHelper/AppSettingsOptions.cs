@@ -1,8 +1,9 @@
-namespace mcq_backend.Helper
+namespace mcq_backend.Helper.AppHelper
 {
-    public class AppSettings
+    public class AppSettingsOptions
     {
-        public static AppSettings Settings { get; set; }
+        public const string AppSettings = "AppSettings";
+        
         public string JwtSecret { get; set; }
         public string Issuer { get; set; }
         public string Audience { get; set; }
