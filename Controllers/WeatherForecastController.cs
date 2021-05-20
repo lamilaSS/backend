@@ -20,7 +20,7 @@ namespace mcq_backend.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly DBContext _ctx;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
         private IGenericRepository<IdoruKeyless> _idorukl;
         private IGenericRepository<Idoru> _idoru;
 
@@ -77,6 +77,9 @@ namespace mcq_backend.Controllers
                 Addr = idoru.Addr,
                 Gender = idoru.Gender
             };
+
+            var newIdol2 = _mapper.Map<Idoru>(idoru);
+                
             var res = await _ctx.Idoru.AddAsync(newIdol);
             if (await _ctx.SaveChangesAsync() < 0)
             {

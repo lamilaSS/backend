@@ -48,8 +48,10 @@ namespace mcq_backend
             var appSettingsOptions = new AppSettingsOptions();
             Configuration.GetSection(AppSettingsOptions.AppSettings).Bind(appSettingsOptions);
             
-            //DI Configuration for later use
+            //DI Configuration appsettings for later use
             services.AddSingleton<AppSettingsOptions>(appSettingsOptions);
+            //DI JWT Factory use for creating 
+            services.AddScoped<JWTFactory>();
             
             services.AddSwaggerGen(c =>
             {

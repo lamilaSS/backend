@@ -8,7 +8,7 @@ namespace mcq_backend.DAL
     {
         public AutoMapperProfile()
         {
-            CreateMap<Idoru, IdoruParam>();
+            CreateMap<Idoru, IdoruParam>().ReverseMap();
         }
     }
 }

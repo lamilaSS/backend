@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using mcq_backend.Helper;
 using mcq_backend.Helper.AppHelper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -15,11 +16,11 @@ namespace mcq_backend.Controllers
     {
         private const string Usrname = "abcd";
         private const string Psswrd = "1234";
-        private readonly AppSettingsOptions _appSettings;
+        private readonly JWTFactory _factory;
 
-        public AuthenticateController(AppSettingsOptions appSettings)
+        public AuthenticateController(JWTFactory factory)
         {
-            _appSettings = appSettings;
+            _factory = factory;
         }
 
         // GET
@@ -27,39 +28,13 @@ namespace mcq_backend.Controllers
         public ActionResult Login(LoginDAL dataset)
         {
             var (username, password) = dataset;
-            if (username is Usrname && password is Psswrd)
+            if (username is not Usrname || password is not Psswrd) return Forbid();
+            
+            var toke = _factory.CreateToken(username);
+            return Ok(new
             {
-                var claims = new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, "1"),
-                    new Claim(JwtRegisteredClaimNames.Email, username),
-                    new Claim(ClaimTypes.Role, "user"),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
-                var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_appSettings.JwtSecret));
-                // var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                // var token = new JwtSecurityToken(AppSettings.Settings.Issuer,
-                //     AppSettings.Settings.Audience,
-                //     claims,
-                //     // expires: DateTime.Now.AddSeconds(55 * 60),
-                //     signingCredentials: creds);
-                var jwtDescriptor = new SecurityTokenDescriptor()
-                {
-                    Subject = new ClaimsIdentity(claims),
-                    SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature),
-                    Audience = _appSettings.Audience,
-                    Issuer = _appSettings.Issuer,
-                    Expires = DateTime.Now.AddDays(2),
-                };
-                var toke = new JwtSecurityTokenHandler().CreateToken(jwtDescriptor);
-                Console.WriteLine(toke);
-
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(toke)
-                });
-            }
-            else return Forbid();
+                token = new JwtSecurityTokenHandler().WriteToken(toke)
+            });
         }
     }
 
