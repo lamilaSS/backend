@@ -22,14 +22,14 @@ namespace mcq_backend.Helper.Context
         
         public DbSet<IdoruKeyless> IdoruKeylesses { get; set; }
         
-        public virtual DbSet<Answer> Answers { get; set; }
-        public virtual DbSet<Game> Games { get; set; }
-        public virtual DbSet<GameQuestion> GameQuestions { get; set; }
-        public virtual DbSet<History> Histories { get; set; }
-        public virtual DbSet<Lifeline> Lifelines { get; set; }
-        public virtual DbSet<Question> Questions { get; set; }
-        public virtual DbSet<ScoreDetail> ScoreDetails { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Game> Games { get; set; }
+        public DbSet<GameQuestion> GameQuestions { get; set; }
+        public DbSet<History> Histories { get; set; }
+        public DbSet<Lifeline> Lifelines { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<ScoreDetail> ScoreDetails { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
