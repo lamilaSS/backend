@@ -5,7 +5,7 @@ using mcq_backend.Model.DefaultModel;
 
 #nullable disable
 
-namespace mcq_backend
+namespace mcq_backend.Model
 {
     public record Answer : DefaultEntity
     {
