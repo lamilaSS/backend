@@ -19,6 +19,14 @@ using mcq_backend.Helper.AppHelper;
 using mcq_backend.Helper.Cache;
 using mcq_backend.Helper.Context;
 using mcq_backend.Repository;
+using mcq_backend.Service.Answer;
+using mcq_backend.Service.Game;
+using mcq_backend.Service.GameQuestion;
+using mcq_backend.Service.History;
+using mcq_backend.Service.Lifeline;
+using mcq_backend.Service.Question;
+using mcq_backend.Service.ScoreDetail;
+using mcq_backend.Service.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
@@ -172,7 +180,14 @@ namespace mcq_backend
 
         private void AddServicesScoped(IServiceCollection services)
         {
-            
+            services.AddScoped<IAnswerService, AnswerService>();
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameQuestionService, GameQuestionService>();
+            services.AddScoped<IHistoryService, HistoryService>();
+            services.AddScoped<ILifelineService, LifelineService>();
+            services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<IScoreDetailService, ScoreDetailService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
