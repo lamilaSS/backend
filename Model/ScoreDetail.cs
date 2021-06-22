@@ -9,10 +9,10 @@ namespace mcq_backend.Model
 {
     public record ScoreDetail: DefaultEntity
     {
-        public ScoreDetail()
-        {
-            Histories = new HashSet<History>();
-        }
+        // public ScoreDetail()
+        // {
+        //     Histories = new HashSet<History>();
+        // }
 
         public Guid ScoreDetailId { get; set; }
         public Guid? QuestionId { get; set; }

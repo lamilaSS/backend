@@ -8,10 +8,10 @@ namespace mcq_backend.Model
 {
     public record User: DefaultEntity
     {
-        public User()
-        {
-            Histories = new HashSet<History>();
-        }
+        // public User()
+        // {
+        //     Histories = new HashSet<History>();
+        // }
 
         public string UserId { get; set; }
         public string Phone { get; set; }

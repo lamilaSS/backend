@@ -8,13 +8,13 @@ namespace mcq_backend.Model
 {
     public record Game : DefaultEntity
     {
-        public Game()
-        {
-            GameQuestions = new HashSet<GameQuestion>();
-            Histories = new HashSet<History>();
-            Lifelines = new HashSet<Lifeline>();
-            ScoreDetails = new HashSet<ScoreDetail>();
-        }
+        // public Game()
+        // {
+        //     GameQuestions = new HashSet<GameQuestion>();
+        //     Histories = new HashSet<History>();
+        //     Lifelines = new HashSet<Lifeline>();
+        //     ScoreDetails = new HashSet<ScoreDetail>();
+        // }
 
         public Guid GameId { get; set; }
         public string GameDescription { get; set; }
