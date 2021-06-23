@@ -39,19 +39,6 @@ namespace mcq_backend.Controllers
             _idorukl = new GenericRepository<IdoruKeyless>(_ctx);
             _idoru = new GenericRepository<Idoru>(_ctx);
         }
-        [Authorize(Roles = "user")]
-        [HttpGet]
-        public IEnumerable<WeathaForecast> Get()
-        {
-            int id = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            Console.WriteLine(id);
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeathaForecast(DateTime.Now.AddDays(index),
-                    rng.Next(-20, 55),
-                    Summaries[rng.Next(Summaries.Length)])
-                )
-                .ToArray();
-        }
 
         [HttpGet("idol")]
         public async Task<IList<IdoruParam>> GetIdol()
