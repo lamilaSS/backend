@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mcq_backend.Helper.Context;
@@ -9,9 +10,10 @@ using mcq_backend.Helper.Context;
 namespace mcq_backend.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20210623200221_questionKeyless")]
+    partial class questionKeyless
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,31 +262,6 @@ namespace mcq_backend.Migrations
                         .HasColumnType("text");
 
                     b.ToTable("IdoruKeylesses");
-                });
-
-            modelBuilder.Entity("mcq_backend.Model.Keyless.QuestionKeyless", b =>
-                {
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("created");
-
-                    b.Property<DateTime>("LastUpdated")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("lastupdated");
-
-                    b.Property<string>("creator")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("difficulty")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("questionContent")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("questionID")
-                        .HasColumnType("uuid");
-
-                    b.ToTable("QuestionKeylesses");
                 });
 
             modelBuilder.Entity("mcq_backend.Model.Lifeline", b =>

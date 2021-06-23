@@ -18,6 +18,7 @@ namespace mcq_backend.Repository
         int first = 0, int offset = 0, bool isIgnore = false);
 
     IList<T> RawSelect(FormattableString query);
+    int GetTotalCount();
     void Insert(T entity);
     void InsertMany(ICollection<T> entities);
     void Update(T entity);

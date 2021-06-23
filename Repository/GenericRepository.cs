@@ -77,6 +77,11 @@ namespace mcq_backend.Repository
             return await query.ToListAsync();
         }
 
+        public int GetTotalCount()
+        {
+            return dbSet.Count();
+        }
+
         public void Insert(T entity)
         {
             if (entity == null) throw new ArgumentException("Entity cannot be null!");
@@ -105,6 +110,7 @@ namespace mcq_backend.Repository
 
         public IList<T> RawSelect(FormattableString query)
         {
+            
             var resp = dbSet.FromSqlInterpolated(query).ToList();
             return resp;
         }

@@ -18,7 +18,7 @@ namespace mcq_backend.Model
 
         public Guid GameId { get; set; }
         public string GameDescription { get; set; }
-        public string Time { get; set; }
+        public string? Time { get; set; }
         public int? Status { get; set; }
 
         public virtual ICollection<GameQuestion> GameQuestions { get; set; }

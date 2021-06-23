@@ -30,6 +30,9 @@ namespace mcq_backend.Helper.Context
         public DbSet<Question> Questions { get; set; }
         public DbSet<ScoreDetail> ScoreDetails { get; set; }
         public DbSet<User> Users { get; set; }
+        
+        //EF Core is f*cking stupid
+        public DbSet<QuestionKeyless> QuestionKeylesses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,7 +48,7 @@ namespace mcq_backend.Helper.Context
                     .HasColumnName("answerID");
 
                 entity.Property(e => e.AnswerContent)
-                    .HasMaxLength(200)
+                    .HasMaxLength(300)
                     .HasColumnName("answerContent");
 
                 entity.Property(e => e.IsCorrect)
@@ -194,7 +197,7 @@ namespace mcq_backend.Helper.Context
                 entity.Property(e => e.Difficulty).HasColumnName("difficulty");
 
                 entity.Property(e => e.QuestionContent)
-                    .HasMaxLength(200)
+                    .HasMaxLength(500)
                     .HasColumnName("questionContent");
             });
 

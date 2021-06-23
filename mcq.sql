@@ -2,7 +2,7 @@ CREATE TABLE "Answer"
 (
     "answerID"      uuid PRIMARY KEY NOT NULL,
     "questionID"    uuid,
-    "answerContent" varchar(200),
+    "answerContent" varchar(300),
     "isCorrect"     bit,
     "status"        int
 );
@@ -48,7 +48,7 @@ CREATE TABLE "Lifeline"
 CREATE TABLE "Question"
 (
     "questionID"      uuid PRIMARY KEY NOT NULL,
-    "questionContent" varchar(200),
+    "questionContent" varchar(500),
     "difficulty"      int,
     "creator"         varchar(50)
 );
