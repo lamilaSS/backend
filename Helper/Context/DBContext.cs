@@ -41,7 +41,7 @@ namespace mcq_backend.Helper.Context
                 entity.ToTable("Answer");
 
                 entity.Property(e => e.AnswerId)
-                    .ValueGeneratedNever()
+                    // .ValueGeneratedNever()
                     .HasColumnName("answerID");
 
                 entity.Property(e => e.AnswerContent)
@@ -49,7 +49,7 @@ namespace mcq_backend.Helper.Context
                     .HasColumnName("answerContent");
 
                 entity.Property(e => e.IsCorrect)
-                    .HasColumnType("bit(1)")
+                    .HasColumnType("boolean")
                     .HasColumnName("isCorrect");
 
                 entity.Property(e => e.QuestionId).HasColumnName("questionID");
@@ -67,7 +67,7 @@ namespace mcq_backend.Helper.Context
                 entity.ToTable("Game");
 
                 entity.Property(e => e.GameId)
-                    .ValueGeneratedNever()
+                    // .ValueGeneratedNever()
                     .HasColumnName("gameID");
 
                 entity.Property(e => e.GameDescription)
@@ -86,7 +86,7 @@ namespace mcq_backend.Helper.Context
                 entity.ToTable("GameQuestion");
 
                 entity.Property(e => e.GameQuestionId)
-                    .ValueGeneratedNever()
+                    // .ValueGeneratedNever()
                     .HasColumnName("gameQuestionID");
 
                 entity.Property(e => e.GameId).HasColumnName("gameID");
@@ -109,7 +109,7 @@ namespace mcq_backend.Helper.Context
                 entity.ToTable("History");
 
                 entity.Property(e => e.HistoryId)
-                    .ValueGeneratedNever()
+                    // .ValueGeneratedNever()
                     .HasColumnName("historyID");
 
                 entity.Property(e => e.Date)
@@ -162,7 +162,7 @@ namespace mcq_backend.Helper.Context
                 entity.ToTable("Lifeline");
 
                 entity.Property(e => e.LifelineId)
-                    .ValueGeneratedNever()
+                    // .ValueGeneratedNever()
                     .HasColumnName("lifelineID");
 
                 entity.Property(e => e.Description)
@@ -184,7 +184,7 @@ namespace mcq_backend.Helper.Context
                 entity.ToTable("Question");
 
                 entity.Property(e => e.QuestionId)
-                    .ValueGeneratedNever()
+                    // .ValueGeneratedNever()
                     .HasColumnName("questionID");
 
                 entity.Property(e => e.Creator)
@@ -203,11 +203,11 @@ namespace mcq_backend.Helper.Context
                 entity.ToTable("ScoreDetail");
 
                 entity.Property(e => e.ScoreDetailId)
-                    .ValueGeneratedNever()
+                    // .ValueGeneratedNever()
                     .HasColumnName("scoreDetailID");
 
                 entity.Property(e => e.IsCorrect)
-                    .HasColumnType("bit(1)")
+                    .HasColumnType("boolean")
                     .HasColumnName("isCorrect");
 
                 entity.Property(e => e.QuestionId).HasColumnName("questionID");

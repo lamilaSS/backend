@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -18,6 +19,7 @@ namespace mcq_backend.Repository
 
     IList<T> RawSelect(FormattableString query);
     void Insert(T entity);
+    void InsertMany(ICollection<T> entities);
     void Update(T entity);
     void Delete(object id);
     }

@@ -18,7 +18,7 @@ namespace mcq_backend.Controllers
     [Authorize(Roles = "user")]
     public class QuestionController : ControllerBase
     {
-        private IQuestionService _questionService;
+        private readonly IQuestionService _questionService;
 
         public QuestionController(IQuestionService questionService)
         {
@@ -30,6 +30,12 @@ namespace mcq_backend.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return await _questionService.CreateQuestions(newQuestions, userId);
+        }
+
+        [HttpGet]
+        public async Task<List<QuestionDataset>> GetQuestions([FromQuery]List<Guid> questionIds)
+        {
+            return await _questionService.GetQuestions(questionIds);
         }
     }
 }

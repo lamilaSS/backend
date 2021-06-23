@@ -83,6 +83,12 @@ namespace mcq_backend.Repository
             dbSet.Add(entity);
         }
 
+        public void InsertMany(ICollection<T> entities)
+        {
+            if (entities.Count <= 0) throw new ArgumentException("Entity list cannot be null!");
+            dbSet.AddRange(entities);
+        }
+
         public void Update(T entity)
         {
             if (entity == null) throw new ArgumentException("Entity cannot be null!");

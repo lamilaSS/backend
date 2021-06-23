@@ -16,7 +16,7 @@ namespace mcq_backend.Model
 
         public Guid ScoreDetailId { get; set; }
         public Guid? QuestionId { get; set; }
-        public BitArray IsCorrect { get; set; }
+        public bool IsCorrect { get; set; }
 
         public virtual Game Question { get; set; }
         public virtual Question QuestionNavigation { get; set; }

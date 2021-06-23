@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace mcq_backend.Migrations
 {
-    public partial class mcq_entities_added : Migration
+    public partial class removeBitArray : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -125,7 +124,7 @@ namespace mcq_backend.Migrations
                     answerID = table.Column<Guid>(type: "uuid", nullable: false),
                     questionID = table.Column<Guid>(type: "uuid", nullable: true),
                     answerContent = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    isCorrect = table.Column<BitArray>(type: "bit(1)", nullable: true),
+                    isCorrect = table.Column<bool>(type: "boolean", nullable: false),
                     status = table.Column<int>(type: "integer", nullable: true),
                     created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     lastupdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
@@ -174,7 +173,7 @@ namespace mcq_backend.Migrations
                 {
                     scoreDetailID = table.Column<Guid>(type: "uuid", nullable: false),
                     questionID = table.Column<Guid>(type: "uuid", nullable: true),
-                    isCorrect = table.Column<BitArray>(type: "bit(1)", nullable: true),
+                    isCorrect = table.Column<bool>(type: "boolean", nullable: false),
                     created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     lastupdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },

@@ -13,6 +13,8 @@ namespace mcq_backend.DAL
             CreateMap<Idoru, IdoruParam>().ReverseMap();
             CreateMap<Question, QuestionCreate>().ReverseMap();
             CreateMap<Answer, AnswerCreate>().ReverseMap();
+            CreateMap<Question, QuestionDataset>().ReverseMap();
+            CreateMap<Answer, AnswerDataset>().ReverseMap();
         }
     }
 }
