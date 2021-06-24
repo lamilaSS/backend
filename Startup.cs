@@ -18,6 +18,7 @@ using mcq_backend.Helper;
 using mcq_backend.Helper.AppHelper;
 using mcq_backend.Helper.Cache;
 using mcq_backend.Helper.Context;
+using mcq_backend.Hub;
 using mcq_backend.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
@@ -164,10 +165,15 @@ namespace mcq_backend
                 x.ReportApiVersions = true;
             });
             
-            ////  in case of SignalR
-            // services.AddSignalR();
-            // services.AddSingleton<IHubConnectionManager, HubConnectionManager>();
-            // services.AddSingleton<IHubNotificationHelper, HubNotificationHelper>();
+            //  in case of SignalR
+             services.AddSignalR(options =>
+             {
+                 options.EnableDetailedErrors = true;
+                 options.HandshakeTimeout = TimeSpan.FromMinutes(1);
+                 
+             });
+             services.AddSingleton<IHubConnectionManager, HubConnectionManager>();
+             services.AddSingleton<IGameHelper, GameHelper>();
         }
 
         private void AddServicesScoped(IServiceCollection services)
@@ -203,7 +209,7 @@ namespace mcq_backend
                 endpoints.MapControllers();
                 
                 // in case of SignalR
-                // endpoints.MapHub<SignalR>("/notifications");
+                endpoints.MapHub<GameHub>("/startGame");
             });
         }
     }

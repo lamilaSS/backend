@@ -25,7 +25,7 @@ namespace mcq_backend
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseKestrel();
+                    webBuilder.UseKestrel(opt => opt.ListenAnyIP(5001,options => options.UseHttps() ));
                 });
     }
 }
