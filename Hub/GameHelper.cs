@@ -29,8 +29,8 @@ namespace mcq_backend.Hub
 
         public async Task MatchGame(string connId)
         {
-            var isAdd = _connectionManager.AddConnection(true, connId);
-            if (!isAdd) throw new MatchmakingException(MatchmakingState.JOIN_POOL, "Cannot join pool to find game!");
+            _connectionManager.AddConnection(true, connId);
+            // if (!isAdd) throw new MatchmakingException(MatchmakingState.JOIN_POOL, "Cannot join pool to find game!");
             var listOfUserOnline = _connectionManager.ActiveUserOnlineObservable;
             if (!listOfUserOnline.Any())
                 throw new MatchmakingException(MatchmakingState.EMPTY_POOL, "There is an error in the pool!");
@@ -40,8 +40,8 @@ namespace mcq_backend.Hub
             //No status (ingame) yet
             while (s.Elapsed < TimeSpan.FromSeconds(120))
             {
-                listOfUserOnline.CollectionChanged += _collectionChanged;
-                if (_idx == -1) continue;
+                // listOfUserOnline.CollectionChanged += _collectionChanged;
+                // if (_idx == -1) continue;
                 if (!(_poolIsland?.Count > 1) || _poolIsland?.Count % 2 != 0) continue;
                 //
                 var gameId = Guid.NewGuid();
@@ -50,6 +50,7 @@ namespace mcq_backend.Hub
                 await AddToGroup(_poolIsland[1]?.ToString(), gameIdAsString);
                 break;
             }
+
             s.Stop();
         }
 
@@ -58,7 +59,6 @@ namespace mcq_backend.Hub
             if (e.Action != NotifyCollectionChangedAction.Add) return;
             _idx = e.NewStartingIndex;
             _poolIsland = e.NewItems;
-
         }
 
         internal async Task AddToGroup(string connId, string groupName)
@@ -67,6 +67,8 @@ namespace mcq_backend.Hub
 
             await HubContext.Clients.Group(groupName).SendAsync("SendNuke",
                 $"{connId} has joined the group {groupName}.");
+
+            Console.WriteLine($"{connId} has joined the group {groupName}.");
         }
 
         internal async Task RemoveFromGroup(string connId, string groupName)
@@ -75,6 +77,8 @@ namespace mcq_backend.Hub
 
             await HubContext.Clients.Group(groupName)
                 .SendAsync("SendNuke", $"{connId} has left the group {groupName}.");
+
+            Console.WriteLine($"{connId} has left the group {groupName}.");
         }
     }
 }

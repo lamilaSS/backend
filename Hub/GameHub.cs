@@ -38,10 +38,8 @@ namespace mcq_backend.Hub
 
         private void _addConnection(string connId)
         {
-            if (_connectionManager.AddConnection(false, connId))
-            {
-                Console.WriteLine($"{connId} successfully added!");
-            }
+            _connectionManager.AddConnection(false, connId);
+
         }
 
         public async Task SendNuke(string usr, string msg)

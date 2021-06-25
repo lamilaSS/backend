@@ -20,7 +20,7 @@ namespace mcq_backend.Hub
             _activeUserPool = new ObservableHashSet<string>();
         }
 
-        public bool AddConnection(bool isActive, string connectionId)
+        public void AddConnection(bool isActive, string connectionId)
         {
             //Only hashset becuz no username yet
 
@@ -34,11 +34,15 @@ namespace mcq_backend.Hub
                     // }
                     //
                     // _userMap[userName].Add(connectionId);
-                    if (_activeUserPool != null) return _activeUserPool.Add(connectionId);
+                    if (_activeUserPool != null)
+                    {
+                        _activeUserPool.Add(connectionId);
+                        Console.WriteLine($"{connectionId} added!");
+                    }
 
                     _activeUserPool = new ObservableHashSet<string> {connectionId};
 
-                    return true;
+            
 
                 }
             }
@@ -52,9 +56,13 @@ namespace mcq_backend.Hub
                 //
                 // _userMap[userName].Add(connectionId);
 
-                if (_userPool != null) return _userPool.Add(connectionId);
+                if (_userPool != null)
+                {
+                    _userPool.Add(connectionId);
+                    Console.WriteLine($"{connectionId} added!");
+                }
                 _userPool = new HashSet<string>() {connectionId};
-                return true;
+
 
             }
         }
