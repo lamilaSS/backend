@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using mcq_backend.Helper;
 using mcq_backend.Helper.AppHelper;
+using mcq_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,18 +18,29 @@ namespace mcq_backend.Controllers
         private const string Usrname = "abcd";
         private const string Psswrd = "1234";
         private readonly JWTFactory _factory;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AuthenticateController(JWTFactory factory)
+        public AuthenticateController(JWTFactory factory, IUnitOfWork unitOfWork)
         {
             _factory = factory;
+            _unitOfWork = unitOfWork;
         }
 
         // GET
         [HttpPost]
-        public ActionResult Login(LoginDAL dataset)
+        public async Task<ActionResult> Login(LoginDAL dataset)
         {
             var (username, password) = dataset;
-            if (username is not Usrname || password is not Psswrd) return Forbid();
+            if (_unitOfWork.UserRepository.GetTotalCount() > 0)
+            {
+                if ((await _unitOfWork.UserRepository.Get(u =>
+                    u.UserId.Equals(dataset.Username) && u.Password.Equals(dataset.Password))).Count <= 0)
+                {
+                    return Forbid();
+                }
+                
+            }
+            else if (username is not Usrname || password is not Psswrd) return Forbid();
             
             var toke = _factory.CreateToken(username);
             return Ok(new

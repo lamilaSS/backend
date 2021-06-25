@@ -30,10 +30,9 @@ namespace mcq_backend.Service.Question
                 Model.Question question = _mapper.Map<Model.Question>(newQuestion);
                 question.Creator = userId;
                 //TODO: check question difficulty
-                question.Difficulty = QuestionDifficulty.EASY;
+                question.Difficulty ??= QuestionDifficulty.EASY;
                 //TODO: check question type (multiple correct answer, non-select answer, single correct answer...)
                 question.Answers = _mapper.Map<ICollection<Model.Answer>>(newQuestion.Answers);
-                //deal with BitArray since postgres does not accept bool
 
                 _unitOfWork.QuestionRepository.Insert(question);
                 // _unitOfWork.AnswerRepository.InsertMany(question.Answers);

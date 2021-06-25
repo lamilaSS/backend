@@ -234,9 +234,9 @@ namespace mcq_backend.Helper.Context
                     .HasMaxLength(50)
                     .HasColumnName("userID");
 
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("timestamp with time zone")
-                    .HasColumnName("createDate");
+                // entity.Property(e => e.CreateDate)
+                //     .HasColumnType("timestamp with time zone")
+                //     .HasColumnName("createDate");
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(50)

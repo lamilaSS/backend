@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using mcq_backend.Model.DefaultModel;
+using mcq_backend.Dataset.History;
 
-#nullable disable
-
-namespace mcq_backend.Model
+namespace mcq_backend.Dataset.User
 {
-    public record User: DefaultEntity
+    public class UserDataset
     {
-        // public User()
-        // {
-        //     Histories = new HashSet<History>();
-        // }
-
         public string UserId { get; set; }
         public string Phone { get; set; }
         public string Password { get; set; }
@@ -21,8 +14,8 @@ namespace mcq_backend.Model
         public string Fullname { get; set; }
         public string Image { get; set; }
         public int? UserStatus { get; set; }
-        // public DateTime? CreateDate { get; set; }
+        public DateTime? CreateDate { get; set; }
 
-        public virtual ICollection<History> Histories { get; set; }
+        public virtual ICollection<HistoryDataset> Histories { get; set; }
     }
 }
